@@ -1,0 +1,1564 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FORGE FITNESS | Luxury High-Performance Athletic Sanctuary</title>
+  <meta name="description" content="FORGE FITNESS - A private high-performance gym engineered for relentless progress. 6 dedicated zones, Olympic calibrated equipment, cyber-neon aesthetics, and elite coaching.">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            forgeGold: '#e5a93c',
+            forgeGoldLight: '#f5d488',
+            forgeRed: '#ff2a2a',
+            forgeDark: '#08080a',
+            forgeSurface: '#121217',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-[#08080a] text-gray-100 font-sans antialiased relative selection:bg-[#ff2a2a] selection:text-white">
+
+  <!-- Interactive Cyber Grid & Ember Canvas Background -->
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- Ambient Sound Bar & Sticky Header -->
+  <header id="main-header" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 py-5 px-6 lg:px-12 backdrop-blur-md bg-black/40 border-b border-white/5">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-3 group cursor-pointer">
+        <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-[#f5d488] via-[#e5a93c] to-[#a67215] p-[1.5px] shadow-[0_0_15px_rgba(229,169,60,0.4)]">
+          <div class="w-full h-full bg-[#0c0c10] rounded-[7px] flex items-center justify-center font-display text-2xl text-[#f5d488] group-hover:scale-105 transition-transform">
+            F
+          </div>
+        </div>
+        <div>
+          <div class="font-display text-2xl tracking-wider text-white flex items-center gap-1.5 leading-none">
+            FORGE <span class="text-[#e5a93c]">FITNESS</span>
+            <span class="w-1.5 h-1.5 rounded-full bg-[#ff2a2a] shadow-[0_0_8px_#ff2a2a] animate-pulse"></span>
+          </div>
+          <div class="text-[9px] font-mono tracking-widest text-gray-400 uppercase mt-0.5">High-Performance Sanctuary</div>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden lg:flex items-center gap-8 text-xs font-heading font-semibold tracking-wider text-gray-300 uppercase">
+        <a href="#zones-explorer" class="hover:text-[#f5d488] transition-colors flex items-center gap-1.5">
+          <span class="font-mono text-[#e5a93c] text-[10px]">01</span> Zones
+        </a>
+        <a href="#equipment-section" class="hover:text-[#f5d488] transition-colors flex items-center gap-1.5">
+          <span class="font-mono text-[#e5a93c] text-[10px]">02</span> Equipment
+        </a>
+        <a href="#heatmap-section" class="hover:text-[#f5d488] transition-colors flex items-center gap-1.5">
+          <span class="font-mono text-[#e5a93c] text-[10px]">03</span> Live Floor
+        </a>
+        <a href="#fit-lab-section" class="hover:text-[#f5d488] transition-colors flex items-center gap-1.5">
+          <span class="font-mono text-[#e5a93c] text-[10px]">04</span> Fit Lab
+        </a>
+        <a href="#classes-section" class="hover:text-[#f5d488] transition-colors flex items-center gap-1.5">
+          <span class="font-mono text-[#e5a93c] text-[10px]">05</span> Classes
+        </a>
+        <a href="#membership-section" class="hover:text-[#f5d488] transition-colors flex items-center gap-1.5">
+          <span class="font-mono text-[#e5a93c] text-[10px]">06</span> Tiers
+        </a>
+      </nav>
+
+      <!-- Right Controls: Audio Engine & VIP Pass CTA -->
+      <div class="flex items-center gap-4">
+        
+        <!-- Interactive Procedural Audio Toggle -->
+        <button 
+          id="sound-toggle-btn"
+          title="Toggle Procedural Audio Atmosphere & Haptics"
+          class="flex items-center gap-2.5 px-3.5 py-2 rounded-full border border-white/15 bg-black/60 hover:border-[#e5a93c] transition-all text-xs font-mono text-gray-300 cursor-pointer"
+        >
+          <div id="sound-waves" class="flex items-end gap-[3px] h-4">
+            <span class="sound-bar h-1"></span>
+            <span class="sound-bar h-2.5"></span>
+            <span class="sound-bar h-1.5"></span>
+            <span class="sound-bar h-3"></span>
+          </div>
+          <span class="hidden sm:inline font-semibold">AUDIO ATMOSPHERE</span>
+        </button>
+
+        <!-- CTA Button -->
+        <button 
+          onclick="forgeMembership.openPassModal('VIP Free Trial')"
+          class="btn-forge-neon text-xs py-2.5 px-5 hidden sm:inline-flex cursor-pointer"
+        >
+          <span>VIP DAY PASS</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        </button>
+
+        <!-- Mobile Menu Toggle -->
+        <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-lg border border-white/15 text-gray-300 hover:text-white">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile Drawer -->
+    <div id="mobile-menu-drawer" class="hidden lg:hidden mt-4 pt-4 border-t border-white/10 bg-[#0c0c10]/95 backdrop-blur-xl p-5 rounded-2xl shadow-2xl space-y-3 text-sm font-heading">
+      <a href="#zones-explorer" class="mobile-nav-link block py-2 text-gray-300 hover:text-[#f5d488]">01. 6 Dedicated Zones</a>
+      <a href="#equipment-section" class="mobile-nav-link block py-2 text-gray-300 hover:text-[#f5d488]">02. Equipment Matrix</a>
+      <a href="#heatmap-section" class="mobile-nav-link block py-2 text-gray-300 hover:text-[#f5d488]">03. Live Heatmap & Hours</a>
+      <a href="#fit-lab-section" class="mobile-nav-link block py-2 text-gray-300 hover:text-[#f5d488]">04. Forge Fit Lab (Calculators)</a>
+      <a href="#classes-section" class="mobile-nav-link block py-2 text-gray-300 hover:text-[#f5d488]">05. Masterclass Schedule</a>
+      <a href="#membership-section" class="mobile-nav-link block py-2 text-gray-300 hover:text-[#f5d488]">06. Membership Tiers</a>
+      <div class="pt-3 border-t border-white/10">
+        <button onclick="forgeMembership.openPassModal('VIP Guest'); document.getElementById('mobile-menu-drawer').classList.add('hidden');" class="btn-forge-gold w-full justify-center text-xs py-3">
+          CLAIM VIP DAY PASS
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== HERO SECTION ==================== -->
+  <section class="relative min-h-screen pt-32 pb-20 px-6 lg:px-12 flex flex-col justify-center overflow-hidden">
+    
+    <!-- Geometric Gold Ambient Background Pattern -->
+    <div class="absolute inset-0 gold-geometric-bg pointer-events-none opacity-40"></div>
+
+    <!-- Subtle Radial Glow Behind Hero -->
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] bg-gradient-to-b from-[#ff2a2a]/15 via-[#e5a93c]/10 to-transparent blur-[140px] pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto w-full relative z-10">
+      
+      <!-- Top Live Status Pill -->
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/60 border border-[#e5a93c]/30 backdrop-blur-md mb-8">
+        <span class="w-2 h-2 rounded-full bg-[#ff2a2a] shadow-[0_0_8px_#ff2a2a] animate-ping"></span>
+        <span class="text-xs font-mono text-[#f5d488] font-bold tracking-wider uppercase">LIVE FACILITY STATUS:</span>
+        <span class="text-xs font-mono text-gray-300">🔥 Peak Energy • 68% Floor Heat</span>
+      </div>
+
+      <!-- Main Headline Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <div class="lg:col-span-7">
+          <h1 class="font-display text-6xl sm:text-7xl lg:text-8xl xl:text-9xl tracking-tight leading-[0.9] text-white uppercase">
+            WHERE <span class="text-gold-gradient text-gold-glow">IRON</span><br>
+            MEETS <span class="text-neon-glow text-white">AMBITION.</span>
+          </h1>
+
+          <p class="mt-6 text-gray-300 text-base sm:text-lg max-w-2xl font-light leading-relaxed">
+            Welcome to <span class="text-white font-semibold">FORGE FITNESS</span>. A private, cyber-luxe training sanctuary engineered for relentless strength and cardiovascular supremacy. 6 architectural zones, Olympic calibrated machinery, and an uncompromising atmosphere.
+          </p>
+
+          <!-- Zone Quick Selector Pills -->
+          <div class="mt-6 flex flex-wrap gap-2 text-xs font-mono">
+            <span class="text-gray-400 self-center mr-1">ZONES:</span>
+            <button onclick="forgeZones.switchZone(0); document.getElementById('zones-explorer').scrollIntoView({behavior:'smooth'})" class="px-3 py-1 rounded bg-black/60 border border-white/10 hover:border-[#ff2a2a] text-gray-300 hover:text-white transition-all cursor-pointer">01. Cardio</button>
+            <button onclick="forgeZones.switchZone(1); document.getElementById('zones-explorer').scrollIntoView({behavior:'smooth'})" class="px-3 py-1 rounded bg-black/60 border border-white/10 hover:border-[#e5a93c] text-gray-300 hover:text-white transition-all cursor-pointer">02. Strength</button>
+            <button onclick="forgeZones.switchZone(2); document.getElementById('zones-explorer').scrollIntoView({behavior:'smooth'})" class="px-3 py-1 rounded bg-black/60 border border-white/10 hover:border-[#ff2a2a] text-gray-300 hover:text-white transition-all cursor-pointer">03. Machines</button>
+            <button onclick="forgeZones.switchZone(3); document.getElementById('zones-explorer').scrollIntoView({behavior:'smooth'})" class="px-3 py-1 rounded bg-black/60 border border-white/10 hover:border-[#e5a93c] text-gray-300 hover:text-white transition-all cursor-pointer">04. Functional</button>
+            <button onclick="forgeZones.switchZone(4); document.getElementById('zones-explorer').scrollIntoView({behavior:'smooth'})" class="px-3 py-1 rounded bg-black/60 border border-white/10 hover:border-[#ff2a2a] text-gray-300 hover:text-white transition-all cursor-pointer">05. Changing</button>
+            <button onclick="forgeZones.switchZone(5); document.getElementById('zones-explorer').scrollIntoView({behavior:'smooth'})" class="px-3 py-1 rounded bg-black/60 border border-white/10 hover:border-[#e5a93c] text-gray-300 hover:text-white transition-all cursor-pointer">06. Reception</button>
+          </div>
+
+          <!-- CTAs -->
+          <div class="mt-8 flex flex-wrap items-center gap-4">
+            <a href="#zones-explorer" class="btn-forge-gold">
+              <span>EXPLORE 6 ZONES</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+            </a>
+
+            <button onclick="forgeMembership.openPassModal('Free Day Pass')" class="btn-forge-neon cursor-pointer">
+              <span>CLAIM VIP DAY PASS</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Hero Visual: Multi-Layered Real Gym Preview Card -->
+        <div class="lg:col-span-5 relative">
+          <div class="relative rounded-2xl overflow-hidden border border-[#e5a93c]/40 shadow-[0_20px_60px_rgba(0,0,0,0.9)] group">
+            <img 
+              src="assets/images/strength.jpg" 
+              alt="FORGE FITNESS Interior" 
+              class="w-full h-[480px] object-cover object-center group-hover:scale-105 transition-transform duration-700 brightness-95"
+            >
+            <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent"></div>
+
+            <!-- Red Neon Ceiling Glow Overlay -->
+            <div class="absolute top-0 left-0 right-0 h-1 bg-[#ff2a2a] shadow-[0_0_15px_#ff2a2a,0_0_30px_#ff2a2a]"></div>
+
+            <!-- Overlaid Badge Card -->
+            <div class="absolute bottom-6 left-6 right-6 p-5 rounded-xl bg-black/80 backdrop-blur-md border border-white/10">
+              <div class="flex items-center justify-between mb-2">
+                <span class="px-2.5 py-1 rounded bg-[#e5a93c]/20 text-[#f5d488] font-mono text-xs font-bold uppercase">
+                  FACILITY SHOWCASE
+                </span>
+                <span class="text-xs font-mono text-gray-400">ARCHITECTURAL SOUND DAMPING</span>
+              </div>
+              <div class="text-white font-heading font-bold text-lg">STRENGTH & FREE WEIGHT ARENA</div>
+              <p class="text-xs text-gray-300 mt-1 leading-relaxed">
+                Featuring calibrated dumbbells up to 60kg, 11-gauge Olympic benches, and full-wall mirrors with signature gold geometric accents.
+              </p>
+              <button onclick="forgeZones.switchZone(1); document.getElementById('zones-explorer').scrollIntoView({behavior:'smooth'})" class="mt-3 text-xs font-mono text-[#e5a93c] hover:text-white flex items-center gap-1 font-bold cursor-pointer">
+                Inspect Zone Dossier →
+              </button>
+            </div>
+          </div>
+
+          <!-- Decorative Floating Metrics -->
+          <div class="absolute -bottom-6 -left-6 bg-[#121217]/95 border border-[#e5a93c]/40 rounded-xl p-4 shadow-2xl backdrop-blur-md hidden sm:block">
+            <div class="text-2xl font-display text-[#f5d488] leading-none">2,500+ KG</div>
+            <div class="text-[10px] font-mono text-gray-400 uppercase mt-0.5">Calibrated Free Iron</div>
+          </div>
+
+          <div class="absolute -top-4 -right-4 bg-[#121217]/95 border border-[#ff2a2a]/50 rounded-xl p-4 shadow-2xl backdrop-blur-md hidden sm:block">
+            <div class="text-2xl font-display text-white leading-none flex items-center gap-1">
+              6 ZONES <span class="w-2 h-2 rounded-full bg-[#ff2a2a] inline-block animate-ping"></span>
+            </div>
+            <div class="text-[10px] font-mono text-gray-400 uppercase mt-0.5">Dedicated Specialized Bays</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Feature Ticker Row -->
+      <div class="mt-20 pt-8 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div class="flex items-center gap-3.5">
+          <div class="w-10 h-10 rounded-lg bg-[#e5a93c]/10 border border-[#e5a93c]/30 flex items-center justify-center text-[#e5a93c]">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <div>
+            <div class="font-heading font-bold text-white text-sm">6 Architectural Zones</div>
+            <div class="text-xs text-gray-400">Cardio to Functional Rig</div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3.5">
+          <div class="w-10 h-10 rounded-lg bg-[#ff2a2a]/10 border border-[#ff2a2a]/30 flex items-center justify-center text-[#ff2a2a]">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+          <div>
+            <div class="font-heading font-bold text-white text-sm">Olympic Precision</div>
+            <div class="text-xs text-gray-400">Calibrated Plates & Barbells</div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3.5">
+          <div class="w-10 h-10 rounded-lg bg-[#e5a93c]/10 border border-[#e5a93c]/30 flex items-center justify-center text-[#e5a93c]">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <div>
+            <div class="font-heading font-bold text-white text-sm">24/7 RFID Access</div>
+            <div class="text-xs text-gray-400">Biometric Keyless Entry</div>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3.5">
+          <div class="w-10 h-10 rounded-lg bg-[#ff2a2a]/10 border border-[#ff2a2a]/30 flex items-center justify-center text-[#ff2a2a]">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+          </div>
+          <div>
+            <div class="font-heading font-bold text-white text-sm">Hydro Recovery</div>
+            <div class="text-xs text-gray-400">Rainfall Showers & Saunas</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==================== SECTION 1: THE INTERACTIVE ZONE EXPLORER ==================== -->
+  <section id="zones-explorer" class="py-24 px-6 lg:px-12 bg-[#0c0c10] border-t border-b border-white/10 relative">
+    
+    <div class="max-w-7xl mx-auto">
+      
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <div>
+          <div class="flex items-center gap-2 text-xs font-mono text-[#e5a93c] tracking-widest uppercase font-bold mb-2">
+            <span class="w-2 h-2 rounded-full bg-[#ff2a2a] animate-ping"></span>
+            SPATIAL ARCHITECTURE & EQUIPMENT
+          </div>
+          <h2 class="font-display text-4xl sm:text-5xl lg:text-6xl text-white uppercase tracking-tight">
+            INTERACTIVE <span class="text-gold-gradient">ZONE EXPLORER</span>
+          </h2>
+          <p class="text-gray-300 text-sm max-w-xl mt-2">
+            Click any zone tab to travel through the facility. Click pulsing red pins on the actual photographs to inspect equipment specifications, telemetry, and biomechanics.
+          </p>
+        </div>
+
+        <!-- Controls: Prev / Next / Fullscreen -->
+        <div class="flex items-center gap-3">
+          <button onclick="forgeZones.prevZone()" class="p-3 rounded-xl border border-white/10 bg-black/60 hover:border-[#e5a93c] text-white hover:text-[#e5a93c] transition-all cursor-pointer" title="Previous Zone">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <button onclick="forgeZones.nextZone()" class="p-3 rounded-xl border border-white/10 bg-black/60 hover:border-[#e5a93c] text-white hover:text-[#e5a93c] transition-all cursor-pointer" title="Next Zone">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </button>
+          <button onclick="forgeZones.openFullscreenTour()" class="btn-forge-neon text-xs py-2.5 px-4 cursor-pointer flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
+            <span>FULLSCREEN 360 PAN</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Zone Selection Tabs (Horizontal Scrollable) -->
+      <div id="zone-tabs-container" class="flex gap-2 overflow-x-auto pb-4 mb-8 scrollbar-none">
+        <!-- Rendered dynamically by zones.js -->
+      </div>
+
+      <!-- Main Zone Viewport Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Left: Interactive Image with Hotspots Pins -->
+        <div class="lg:col-span-7 relative rounded-2xl overflow-hidden border border-[#e5a93c]/40 bg-black shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
+          
+          <div class="relative w-full aspect-[4/5] sm:aspect-[4/3] lg:aspect-[4/5] max-h-[640px] overflow-hidden">
+            <img 
+              id="zone-main-image"
+              src="assets/images/cardio.jpg" 
+              alt="FORGE Zone View" 
+              class="w-full h-full object-cover object-center transition-all duration-500"
+            >
+            
+            <!-- Ceiling Red Neon Line Visual -->
+            <div class="absolute top-0 left-0 right-0 h-1 bg-[#ff2a2a] shadow-[0_0_15px_#ff2a2a,0_0_25px_#ff2a2a]"></div>
+
+            <!-- Overlaid Hotspot Pins Container -->
+            <div id="zone-hotspots-container" class="absolute inset-0">
+              <!-- Rendered dynamically by zones.js -->
+            </div>
+
+            <!-- Hotspot Guidance Overlay Pill -->
+            <div class="absolute bottom-4 left-4 bg-black/85 backdrop-blur-md border border-white/10 px-3.5 py-1.5 rounded-full flex items-center gap-2 text-[11px] font-mono text-gray-300">
+              <span class="w-2 h-2 rounded-full bg-[#ff2a2a] animate-ping"></span>
+              <span>Click pulsing markers to inspect equipment</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right: Zone Dossier & Equipment Breakdown -->
+        <div class="lg:col-span-5 space-y-6">
+          
+          <!-- Zone Header Card -->
+          <div class="forge-card p-6 border-l-4 border-l-[#e5a93c]">
+            <div class="flex items-center justify-between mb-3">
+              <span id="zone-number" class="text-xs font-mono text-[#e5a93c] font-bold tracking-widest uppercase">
+                ZONE 01 / 06
+              </span>
+              <span id="zone-capacity-pill" class="text-xs font-mono px-3 py-1 rounded-full bg-black/60 border border-white/10 text-gray-300">
+                42% Occupied • Optimal Flow
+              </span>
+            </div>
+
+            <h3 id="zone-title" class="text-white font-heading font-extrabold text-3xl mb-1">
+              Cardio Zone
+            </h3>
+            <div id="zone-tagline" class="text-xs font-mono text-gray-400 mb-3 uppercase tracking-wider">
+              High-Performance Kinetic Endurance
+            </div>
+            <div id="zone-equip-summary" class="text-sm text-[#f5d488] font-semibold mb-4 pb-4 border-b border-white/10">
+              Equipped with: Treadmills, cycles, cross trainers
+            </div>
+
+            <!-- Environmental Telemetry -->
+            <div class="grid grid-cols-2 gap-3 mb-4">
+              <div class="p-3 rounded-lg bg-black/40 border border-white/5">
+                <div class="text-[10px] font-mono text-gray-400 uppercase">Ambient Climate</div>
+                <div id="zone-temp-pill" class="font-mono text-white text-sm font-bold mt-0.5">19°C / 66°F</div>
+              </div>
+              <div class="p-3 rounded-lg bg-black/40 border border-white/5">
+                <div class="text-[10px] font-mono text-gray-400 uppercase">Lighting Schema</div>
+                <div class="font-mono text-white text-sm font-bold mt-0.5 text-[#ff4d4d]">Crimson LED Grid</div>
+              </div>
+            </div>
+
+            <div>
+              <div class="text-[10px] font-mono text-gray-400 uppercase mb-1">Primary Performance Objective</div>
+              <p id="zone-best-for" class="text-xs text-gray-300 leading-relaxed">
+                VO2 Max, Sprint Intervals & Calorie Annihilation
+              </p>
+            </div>
+          </div>
+
+          <!-- Zone Equipment Inventory Checklist -->
+          <div class="forge-card p-6">
+            <div class="text-xs font-mono text-[#e5a93c] uppercase font-bold tracking-wider mb-4 flex items-center justify-between">
+              <span>ZONE ARSENAL INVENTORY</span>
+              <span class="text-gray-400 text-[10px]">VERIFIED ASSETS</span>
+            </div>
+
+            <div id="zone-equipment-items" class="space-y-2.5">
+              <!-- Rendered dynamically by zones.js -->
+            </div>
+          </div>
+
+          <!-- Quick Action Buttons -->
+          <div class="flex items-center gap-3">
+            <button onclick="forgeMembership.openPassModal('Zone Tour')" class="btn-forge-gold w-full justify-center text-xs py-3.5">
+              <span>SCHEDULE VIP WALKTHROUGH</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==================== SECTION 2: INTERACTIVE EQUIPMENT MATRIX & MUSCLE TARGETER ==================== -->
+  <section id="equipment-section" class="py-24 px-6 lg:px-12 bg-[#08080a] relative">
+    <div class="max-w-7xl mx-auto">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#e5a93c]/10 border border-[#e5a93c]/30 text-xs font-mono text-[#f5d488] font-bold uppercase mb-3">
+          COMPLETE FACILITY INVENTORY
+        </div>
+        <h2 class="font-display text-4xl sm:text-5xl lg:text-6xl text-white uppercase tracking-tight">
+          THE <span class="text-gold-gradient">EQUIPMENT MATRIX</span>
+        </h2>
+        <p class="text-gray-300 text-sm mt-3 leading-relaxed">
+          Explore every station spanning Cardio, Strength, Machines, Functional, Changing, and Reception. Filter by zone or targeted anatomy to forge your next PR.
+        </p>
+      </div>
+
+      <!-- Controls: Zone Buttons + Muscle Filter + Live Search -->
+      <div class="space-y-4 mb-10">
+        
+        <!-- Search and Primary Zone Filters -->
+        <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+          
+          <!-- Zone Filter Tabs -->
+          <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+            <button data-zone="all" class="equip-zone-btn active px-4 py-2 rounded-lg text-xs font-mono font-bold uppercase border border-white/10 bg-[#e5a93c] text-black transition-all cursor-pointer">All (17)</button>
+            <button data-zone="Cardio" class="equip-zone-btn px-4 py-2 rounded-lg text-xs font-mono font-bold uppercase border border-white/10 bg-black/60 text-gray-300 hover:text-white transition-all cursor-pointer">Cardio</button>
+            <button data-zone="Strength" class="equip-zone-btn px-4 py-2 rounded-lg text-xs font-mono font-bold uppercase border border-white/10 bg-black/60 text-gray-300 hover:text-white transition-all cursor-pointer">Strength</button>
+            <button data-zone="Machines" class="equip-zone-btn px-4 py-2 rounded-lg text-xs font-mono font-bold uppercase border border-white/10 bg-black/60 text-gray-300 hover:text-white transition-all cursor-pointer">Machines</button>
+            <button data-zone="Functional" class="equip-zone-btn px-4 py-2 rounded-lg text-xs font-mono font-bold uppercase border border-white/10 bg-black/60 text-gray-300 hover:text-white transition-all cursor-pointer">Functional</button>
+            <button data-zone="Changing" class="equip-zone-btn px-4 py-2 rounded-lg text-xs font-mono font-bold uppercase border border-white/10 bg-black/60 text-gray-300 hover:text-white transition-all cursor-pointer">Changing</button>
+            <button data-zone="Reception" class="equip-zone-btn px-4 py-2 rounded-lg text-xs font-mono font-bold uppercase border border-white/10 bg-black/60 text-gray-300 hover:text-white transition-all cursor-pointer">Reception</button>
+          </div>
+
+          <!-- Instant Search Input -->
+          <div class="relative min-w-[280px]">
+            <input 
+              id="equip-search-input"
+              type="text" 
+              placeholder="Search equipment (e.g. dumbbells, lat pulldown)..."
+              class="w-full bg-black/70 border border-white/15 rounded-xl px-4 py-2.5 pl-10 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-[#e5a93c] transition-colors font-sans"
+            >
+            <svg class="w-4 h-4 text-gray-400 absolute left-3.5 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          </div>
+
+        </div>
+
+        <!-- Muscle Targeter Buttons Row -->
+        <div class="p-3.5 rounded-xl bg-black/40 border border-white/5 flex flex-wrap items-center gap-2 text-xs font-mono">
+          <span class="text-gray-400 font-bold uppercase mr-2 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#ff2a2a]"></span>
+            TARGET MUSCLE:
+          </span>
+          <button data-muscle="all" class="equip-muscle-btn active px-3 py-1 rounded bg-black/70 border border-white/10 hover:border-[#ff2a2a] text-gray-300 cursor-pointer">ALL ANATOMY</button>
+          <button data-muscle="chest" class="equip-muscle-btn px-3 py-1 rounded bg-black/70 border border-white/10 hover:border-[#ff2a2a] text-gray-300 cursor-pointer">CHEST</button>
+          <button data-muscle="back" class="equip-muscle-btn px-3 py-1 rounded bg-black/70 border border-white/10 hover:border-[#ff2a2a] text-gray-300 cursor-pointer">BACK & LATS</button>
+          <button data-muscle="legs" class="equip-muscle-btn px-3 py-1 rounded bg-black/70 border border-white/10 hover:border-[#ff2a2a] text-gray-300 cursor-pointer">LEGS & QUADS</button>
+          <button data-muscle="shoulders" class="equip-muscle-btn px-3 py-1 rounded bg-black/70 border border-white/10 hover:border-[#ff2a2a] text-gray-300 cursor-pointer">SHOULDERS</button>
+          <button data-muscle="arms" class="equip-muscle-btn px-3 py-1 rounded bg-black/70 border border-white/10 hover:border-[#ff2a2a] text-gray-300 cursor-pointer">ARMS (BICEP/TRICEP)</button>
+          <button data-muscle="core" class="equip-muscle-btn px-3 py-1 rounded bg-black/70 border border-white/10 hover:border-[#ff2a2a] text-gray-300 cursor-pointer">CORE & AGILITY</button>
+          <button data-muscle="cardio" class="equip-muscle-btn px-3 py-1 rounded bg-black/70 border border-white/10 hover:border-[#ff2a2a] text-gray-300 cursor-pointer">CARDIO ENGINE</button>
+          <button data-muscle="amenities" class="equip-muscle-btn px-3 py-1 rounded bg-black/70 border border-white/10 hover:border-[#ff2a2a] text-gray-300 cursor-pointer">AMENITIES / SPA</button>
+        </div>
+
+      </div>
+
+      <!-- Equipment 3D Tilt Cards Grid -->
+      <div id="equipment-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Rendered dynamically by equipment.js -->
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==================== SECTION 3: LIVE FLOOR HEATMAP & PEAK HOURS ==================== -->
+  <section id="heatmap-section" class="py-24 px-6 lg:px-12 bg-[#0c0c10] border-t border-b border-white/10 relative">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Left: Hourly Slider & Live Capacity Meters -->
+        <div class="lg:col-span-7">
+          <div class="flex items-center gap-2 text-xs font-mono text-[#ff2a2a] font-bold uppercase tracking-widest mb-2">
+            <span class="w-2 h-2 rounded-full bg-[#ff2a2a] animate-ping"></span>
+            REAL-TIME CAPACITY TELEMETRY
+          </div>
+          <h2 class="font-display text-4xl sm:text-5xl lg:text-6xl text-white uppercase tracking-tight">
+            LIVE FLOOR <span class="text-neon-glow text-[#ff2a2a]">HEATMAP</span>
+          </h2>
+          <p class="text-gray-300 text-sm max-w-xl mt-2 leading-relaxed">
+            Drag the time slider across operating hours to view simulated member density in each zone. Plan your sessions for solitude or immerse in peak high-voltage iron energy.
+          </p>
+
+          <!-- Interactive Time Slider Card -->
+          <div class="forge-card p-6 mt-8">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <span class="text-xs font-mono text-gray-400 uppercase">SELECTED TIME</span>
+                <div id="heatmap-hour-display" class="font-display text-4xl text-white mt-0.5">6:00 PM</div>
+              </div>
+              <div class="text-right">
+                <span class="text-xs font-mono text-gray-400 uppercase">FACILITY VIBE</span>
+                <div id="heatmap-vibe-label" class="font-mono text-sm font-bold text-[#ff4d4d] mt-0.5">
+                  🔥 REDLINE MAXIMUM PEAK
+                </div>
+              </div>
+            </div>
+
+            <!-- Custom Range Slider -->
+            <input 
+              id="heatmap-hour-slider"
+              type="range" 
+              min="6" 
+              max="22" 
+              value="18" 
+              step="1"
+              class="w-full accent-[#ff2a2a] cursor-pointer h-2 bg-gray-800 rounded-lg"
+            >
+            <div class="flex justify-between text-[10px] font-mono text-gray-500 mt-2">
+              <span>6 AM (Dawn)</span>
+              <span>12 PM (Noon)</span>
+              <span>6 PM (Peak)</span>
+              <span>10 PM (Night)</span>
+            </div>
+          </div>
+
+          <!-- Zone Capacity Progress Bars -->
+          <div class="mt-8 space-y-4">
+            
+            <!-- Cardio Bar -->
+            <div>
+              <div class="flex justify-between text-xs font-mono mb-1.5">
+                <span class="text-white font-semibold">Cardio Zone (Treadmills, Cycles, Cross Trainers)</span>
+                <span id="heat-val-cardio" class="text-[#f5d488] font-bold">90%</span>
+              </div>
+              <div class="w-full h-2.5 rounded-full bg-black/60 border border-white/5 overflow-hidden">
+                <div id="heat-bar-cardio" class="h-2.5 rounded-full bg-[#ff2a2a] transition-all duration-300" style="width: 90%;"></div>
+              </div>
+            </div>
+
+            <!-- Strength Bar -->
+            <div>
+              <div class="flex justify-between text-xs font-mono mb-1.5">
+                <span class="text-white font-semibold">Strength Zone (Dumbbells, Benches, Barbells)</span>
+                <span id="heat-val-strength" class="text-[#f5d488] font-bold">95%</span>
+              </div>
+              <div class="w-full h-2.5 rounded-full bg-black/60 border border-white/5 overflow-hidden">
+                <div id="heat-bar-strength" class="h-2.5 rounded-full bg-[#ff2a2a] transition-all duration-300" style="width: 95%;"></div>
+              </div>
+            </div>
+
+            <!-- Machines Bar -->
+            <div>
+              <div class="flex justify-between text-xs font-mono mb-1.5">
+                <span class="text-white font-semibold">Machines Zone (Chest Press, Lat Pulldown, Leg Press)</span>
+                <span id="heat-val-machines" class="text-[#f5d488] font-bold">90%</span>
+              </div>
+              <div class="w-full h-2.5 rounded-full bg-black/60 border border-white/5 overflow-hidden">
+                <div id="heat-bar-machines" class="h-2.5 rounded-full bg-[#ff2a2a] transition-all duration-300" style="width: 90%;"></div>
+              </div>
+            </div>
+
+            <!-- Functional Bar -->
+            <div>
+              <div class="flex justify-between text-xs font-mono mb-1.5">
+                <span class="text-white font-semibold">Functional Zone (Kettlebells, Battle Ropes, Mats)</span>
+                <span id="heat-val-functional" class="text-[#f5d488] font-bold">85%</span>
+              </div>
+              <div class="w-full h-2.5 rounded-full bg-black/60 border border-white/5 overflow-hidden">
+                <div id="heat-bar-functional" class="h-2.5 rounded-full bg-[#ff2a2a] transition-all duration-300" style="width: 85%;"></div>
+              </div>
+            </div>
+
+            <!-- Changing Bar -->
+            <div>
+              <div class="flex justify-between text-xs font-mono mb-1.5">
+                <span class="text-white font-semibold">Changing Zone (Lockers, Showers, Washrooms)</span>
+                <span id="heat-val-changing" class="text-[#f5d488] font-bold">80%</span>
+              </div>
+              <div class="w-full h-2.5 rounded-full bg-black/60 border border-white/5 overflow-hidden">
+                <div id="heat-bar-changing" class="h-2.5 rounded-full bg-[#ff2a2a] transition-all duration-300" style="width: 80%;"></div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Right: Training Windows Recommendation Card -->
+        <div class="lg:col-span-5 space-y-6">
+          <div class="forge-card p-6 border-t-4 border-t-[#ff2a2a]">
+            <h3 class="font-heading font-bold text-white text-xl mb-4 flex items-center gap-2">
+              <svg class="w-5 h-5 text-[#ff2a2a]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <span>OPTIMAL WORKOUT WINDOWS</span>
+            </h3>
+
+            <div class="space-y-4">
+              <!-- Window 1 -->
+              <div class="p-4 rounded-xl bg-black/50 border border-white/5">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-mono text-[#f5d488] font-bold">06:00 AM - 07:30 AM</span>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">LOW CROWD</span>
+                </div>
+                <div class="text-sm font-heading font-bold text-white mt-1">Dawn Discipline</div>
+                <p class="text-xs text-gray-400 mt-0.5">Instant access to Olympic platforms & dumbbells. Zero waiting time.</p>
+              </div>
+
+              <!-- Window 2 -->
+              <div class="p-4 rounded-xl bg-black/50 border border-white/5">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-mono text-[#f5d488] font-bold">01:30 PM - 04:00 PM</span>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">SERENE FOCUS</span>
+                </div>
+                <div class="text-sm font-heading font-bold text-white mt-1">Midday Sanctuary</div>
+                <p class="text-xs text-gray-400 mt-0.5">Perfect for filming form checks, supersets, and prolonged mobility work.</p>
+              </div>
+
+              <!-- Window 3 -->
+              <div class="p-4 rounded-xl bg-black/50 border border-[#ff2a2a]/30">
+                <div class="flex items-center justify-between">
+                  <span class="text-xs font-mono text-[#ff4d4d] font-bold">05:30 PM - 08:00 PM</span>
+                  <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-[#ff2a2a]/20 text-[#ff4d4d] border border-[#ff2a2a]/30">MAX ENERGY</span>
+                </div>
+                <div class="text-sm font-heading font-bold text-white mt-1">Prime Forge Rush</div>
+                <p class="text-xs text-gray-400 mt-0.5">Heavy bass, high competitive energy, and peak community intensity.</p>
+              </div>
+            </div>
+
+            <button onclick="forgeMembership.openPassModal('Tour During Prime')" class="btn-ghost-gold w-full mt-6 text-xs justify-center flex items-center gap-2">
+              <span>SCHEDULE CHECK-IN AT DESK</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==================== SECTION 4: THE FORGE FIT LAB (INTERACTIVE CALCULATORS) ==================== -->
+  <section id="fit-lab-section" class="py-24 px-6 lg:px-12 bg-[#08080a] relative">
+    <div class="max-w-7xl mx-auto">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#e5a93c]/10 border border-[#e5a93c]/30 text-xs font-mono text-[#f5d488] font-bold uppercase mb-3">
+          PERFORMANCE SCIENCE & METRICS
+        </div>
+        <h2 class="font-display text-4xl sm:text-5xl lg:text-6xl text-white uppercase tracking-tight">
+          THE <span class="text-gold-gradient">FORGE FIT LAB</span>
+        </h2>
+        <p class="text-gray-300 text-sm mt-3 leading-relaxed">
+          Calibrate your heavy lifts, customize your macronutrient intake, and generate your weekly training itinerary mapped to Forge Fitness zones.
+        </p>
+      </div>
+
+      <!-- Fit Lab Navigation Tabs -->
+      <div class="flex justify-center mb-8">
+        <div class="inline-flex p-1.5 rounded-xl bg-[#121217] border border-white/10 gap-2">
+          <button data-target="panel-1rm" class="lab-tab-btn active px-5 py-2.5 rounded-lg text-xs font-heading font-bold uppercase border border-[#e5a93c] text-[#f5d488] bg-[#e5a93c]/10 transition-all cursor-pointer">
+            01. 1RM Max Estimator
+          </button>
+          <button data-target="panel-macros" class="lab-tab-btn px-5 py-2.5 rounded-lg text-xs font-heading font-bold uppercase text-gray-400 hover:text-white transition-all cursor-pointer">
+            02. Macro & Calorie Forger
+          </button>
+          <button data-target="panel-split" class="lab-tab-btn px-5 py-2.5 rounded-lg text-xs font-heading font-bold uppercase text-gray-400 hover:text-white transition-all cursor-pointer">
+            03. Zone Split Builder
+          </button>
+        </div>
+      </div>
+
+      <!-- Tab Panel 1: 1RM Calculator -->
+      <div id="panel-1rm" class="lab-panel grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        
+        <!-- Left: Inputs -->
+        <div class="lg:col-span-6 forge-card p-6">
+          <h3 class="font-heading font-bold text-white text-xl mb-4 flex items-center gap-2">
+            <svg class="w-5 h-5 text-[#e5a93c]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"/></svg>
+            <span>ONE-REP MAX STRENGTH ESTIMATOR</span>
+          </h3>
+          <p class="text-xs text-gray-300 mb-6">
+            Input your working weight and clean reps performed. Computes your theoretical maximum single using the Epley kinematic algorithm.
+          </p>
+
+          <div class="space-y-4">
+            <div>
+              <label class="block text-xs font-mono text-gray-400 uppercase mb-1.5">Select Exercise</label>
+              <select id="1rm-lift" class="w-full bg-black border border-white/15 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#e5a93c]">
+                <option value="bench">Olympic Barbell Bench Press (Strength Zone)</option>
+                <option value="squat">Olympic Back Squat (Strength Zone)</option>
+                <option value="deadlift">Conventional / Sumo Deadlift (Strength Zone)</option>
+                <option value="overhead">Military Overhead Press (Strength Zone)</option>
+                <option value="legpress">Titan 45° Leg Press (Machines Zone)</option>
+                <option value="chestpress">Iso-Lateral Chest Press (Machines Zone)</option>
+              </select>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-mono text-gray-400 uppercase mb-1.5">Weight Lifted (KG)</label>
+                <input id="1rm-weight" type="number" value="100" min="10" max="600" step="2.5" class="w-full bg-black border border-white/15 rounded-xl px-4 py-3 text-sm text-white font-mono focus:outline-none focus:border-[#e5a93c]">
+              </div>
+              <div>
+                <label class="block text-xs font-mono text-gray-400 uppercase mb-1.5">Reps Performed (1-12)</label>
+                <input id="1rm-reps" type="number" value="5" min="1" max="15" class="w-full bg-black border border-white/15 rounded-xl px-4 py-3 text-sm text-white font-mono focus:outline-none focus:border-[#e5a93c]">
+              </div>
+            </div>
+
+            <button id="1rm-calc-btn" class="btn-forge-gold w-full justify-center text-xs py-3.5 mt-2 cursor-pointer">
+              <span>CALCULATE 1RM MAX</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right: Results & Target Load Breakdown -->
+        <div class="lg:col-span-6 forge-card p-6 border-r-4 border-r-[#e5a93c]">
+          <div class="text-center p-6 rounded-2xl bg-black/60 border border-white/10 mb-6">
+            <div class="text-xs font-mono text-[#e5a93c] uppercase font-bold tracking-widest">ESTIMATED 1RM MAX</div>
+            <div id="1rm-result-val" class="font-display text-6xl text-white text-gold-glow mt-2">117 KG</div>
+            <div class="text-xs text-gray-400 mt-1">Based on Epley standard: $1\text{RM} = \text{weight} \times (1 + \text{reps}/30)$</div>
+          </div>
+
+          <div class="text-xs font-mono text-gray-400 uppercase font-bold mb-3">TRAINING PERCENTAGE TARGETS</div>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="p-3 rounded-xl bg-black/40 border border-white/5 flex justify-between items-center">
+              <div>
+                <div class="text-white font-bold text-sm">95% Load</div>
+                <div class="text-[10px] text-gray-400">Heavy Single Peak</div>
+              </div>
+              <span id="1rm-pct-95" class="font-mono text-[#f5d488] font-bold text-base">111 kg</span>
+            </div>
+
+            <div class="p-3 rounded-xl bg-black/40 border border-white/5 flex justify-between items-center">
+              <div>
+                <div class="text-white font-bold text-sm">85% Load</div>
+                <div class="text-[10px] text-gray-400">5-Rep Strength</div>
+              </div>
+              <span id="1rm-pct-85" class="font-mono text-[#f5d488] font-bold text-base">99 kg</span>
+            </div>
+
+            <div class="p-3 rounded-xl bg-black/40 border border-white/5 flex justify-between items-center">
+              <div>
+                <div class="text-white font-bold text-sm">75% Load</div>
+                <div class="text-[10px] text-gray-400">10-Rep Hypertrophy</div>
+              </div>
+              <span id="1rm-pct-75" class="font-mono text-[#f5d488] font-bold text-base">88 kg</span>
+            </div>
+
+            <div class="p-3 rounded-xl bg-black/40 border border-white/5 flex justify-between items-center">
+              <div>
+                <div class="text-white font-bold text-sm">65% Load</div>
+                <div class="text-[10px] text-gray-400">15-Rep Speed/Deload</div>
+              </div>
+              <span id="1rm-pct-65" class="font-mono text-[#f5d488] font-bold text-base">76 kg</span>
+            </div>
+          </div>
+
+          <div class="mt-5 pt-4 border-t border-white/10 flex items-center justify-between">
+            <span class="text-xs text-gray-400">Ready to test on Olympic Barbells?</span>
+            <button onclick="forgeZones.switchZone(1); document.getElementById('zones-explorer').scrollIntoView({behavior:'smooth'})" class="text-xs font-mono text-[#e5a93c] font-bold hover:text-white cursor-pointer">
+              Go to Strength Zone →
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Tab Panel 2: Macro & Calorie Forger -->
+      <div id="panel-macros" class="lab-panel hidden grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        
+        <div class="lg:col-span-6 forge-card p-6">
+          <h3 class="font-heading font-bold text-white text-xl mb-4 flex items-center gap-2">
+            <svg class="w-5 h-5 text-[#ff2a2a]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+            <span>DAILY CALORIE & MACRO FORGER</span>
+          </h3>
+          <p class="text-xs text-gray-300 mb-6">
+            Formulate your nutritional intake to match your athletic expenditure and physique transformation objective.
+          </p>
+
+          <div class="space-y-4">
+            <div>
+              <label class="block text-xs font-mono text-gray-400 uppercase mb-1.5">Primary Physique Goal</label>
+              <select id="macro-goal" class="w-full bg-black border border-white/15 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#e5a93c]">
+                <option value="hypertrophy">Lean Muscle Hypertrophy (+300 kcal Surplus)</option>
+                <option value="shred">Aggressive Shred & Fat Annihilation (-500 kcal Deficit)</option>
+                <option value="power">Raw Strength & Heavy Mass (+550 kcal Surplus)</option>
+              </select>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-mono text-gray-400 uppercase mb-1.5">Body Weight (KG)</label>
+                <input id="macro-weight" type="number" value="78" min="40" max="180" class="w-full bg-black border border-white/15 rounded-xl px-4 py-3 text-sm text-white font-mono focus:outline-none focus:border-[#e5a93c]">
+              </div>
+              <div>
+                <label class="block text-xs font-mono text-gray-400 uppercase mb-1.5">Training Frequency</label>
+                <select id="macro-activity" class="w-full bg-black border border-white/15 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#e5a93c]">
+                  <option value="1.55">Moderate (3-4 Days / Week)</option>
+                  <option value="1.725">Intense (5-6 Days / Week)</option>
+                  <option value="1.9">Elite Double Sessions</option>
+                </select>
+              </div>
+            </div>
+
+            <button id="macro-calc-btn" class="btn-forge-neon w-full justify-center text-xs py-3.5 mt-2 cursor-pointer">
+              <span>CALCULATE MACRONUTRIENTS</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="lg:col-span-6 forge-card p-6">
+          <div class="text-center p-6 rounded-2xl bg-black/60 border border-white/10 mb-6">
+            <div class="text-xs font-mono text-[#ff4d4d] uppercase font-bold tracking-widest">DAILY CALORIC EXPENDITURE</div>
+            <div id="macro-calories-val" class="font-display text-6xl text-white text-neon-glow mt-2">2,850 KCAL</div>
+            <div class="text-xs text-gray-400 mt-1">Calibrated daily metabolic target for optimal recovery</div>
+          </div>
+
+          <div class="grid grid-cols-3 gap-3 mb-4">
+            <div class="p-3.5 rounded-xl bg-black/40 border border-[#ff2a2a]/30 text-center">
+              <div class="text-[11px] font-mono text-gray-400 uppercase font-bold">Protein</div>
+              <div id="macro-protein-val" class="font-display text-2xl text-white mt-1">172g</div>
+              <div class="text-[10px] text-gray-400">4 kcal / g</div>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-black/40 border border-[#e5a93c]/30 text-center">
+              <div class="text-[11px] font-mono text-gray-400 uppercase font-bold">Carbs</div>
+              <div id="macro-carbs-val" class="font-display text-2xl text-white mt-1">320g</div>
+              <div class="text-[10px] text-gray-400">4 kcal / g</div>
+            </div>
+
+            <div class="p-3.5 rounded-xl bg-black/40 border border-white/10 text-center">
+              <div class="text-[11px] font-mono text-gray-400 uppercase font-bold">Fats</div>
+              <div id="macro-fat-val" class="font-display text-2xl text-white mt-1">78g</div>
+              <div class="text-[10px] text-gray-400">9 kcal / g</div>
+            </div>
+          </div>
+
+          <div class="p-3 rounded-xl bg-black/50 border border-white/5 flex items-center justify-between text-xs font-mono">
+            <span class="text-gray-400">Hydration Target:</span>
+            <span id="macro-water-val" class="text-[#f5d488] font-bold">3.5 Liters / Day</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Tab Panel 3: Zone Split Builder -->
+      <div id="panel-split" class="lab-panel hidden forge-card p-6">
+        <div class="max-w-2xl mx-auto mb-8 text-center">
+          <h3 class="font-heading font-bold text-white text-2xl mb-2">CUSTOM WORKOUT SPLIT GENERATOR</h3>
+          <p class="text-xs text-gray-300">
+            Select your weekly frequency to generate an itinerary seamlessly mapped to Forge Fitness zones and stations.
+          </p>
+
+          <div class="flex flex-wrap items-center justify-center gap-4 mt-6">
+            <div>
+              <label class="text-xs font-mono text-gray-400 uppercase mr-2">Days / Week:</label>
+              <select id="split-days" class="bg-black border border-white/20 rounded-lg px-3 py-1.5 text-xs text-white">
+                <option value="3">3 Days (Push / Pull / Legs)</option>
+                <option value="4" selected>4 Days (Upper / Lower Power)</option>
+                <option value="5">5 Days (Pro Hypertrophy & Engine)</option>
+              </select>
+            </div>
+            <button id="split-gen-btn" class="btn-forge-gold text-xs py-2 px-4 cursor-pointer">
+              GENERATE BLUEPRINT
+            </button>
+          </div>
+        </div>
+
+        <div id="split-output-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <!-- Rendered dynamically by calculators.js -->
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==================== SECTION 5: LIVE CLASS SCHEDULE ==================== -->
+  <section id="classes-section" class="py-24 px-6 lg:px-12 bg-[#0c0c10] border-t border-b border-white/10 relative">
+    <div class="max-w-7xl mx-auto">
+      
+      <!-- Section Header -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+        <div>
+          <div class="flex items-center gap-2 text-xs font-mono text-[#e5a93c] tracking-widest uppercase font-bold mb-2">
+            <span class="w-2 h-2 rounded-full bg-[#ff2a2a] animate-ping"></span>
+            ELITE COACHING & MASTERCLASSES
+          </div>
+          <h2 class="font-display text-4xl sm:text-5xl lg:text-6xl text-white uppercase tracking-tight">
+            MASTERCLASS <span class="text-gold-gradient">SCHEDULE</span>
+          </h2>
+          <p class="text-gray-300 text-sm max-w-xl mt-2 leading-relaxed">
+            Reserve your spot in high-octane group conditioning and technique clinics. Click "Reserve Spot" to toggle your booking in real time.
+          </p>
+        </div>
+
+        <!-- Filter Intensity -->
+        <div class="flex items-center gap-3">
+          <label class="text-xs font-mono text-gray-400 uppercase">Intensity:</label>
+          <select id="class-intensity-filter" class="bg-black border border-white/15 rounded-xl px-4 py-2 text-xs text-white focus:outline-none focus:border-[#e5a93c]">
+            <option value="all">All Intensities</option>
+            <option value="high">High Intensity HIIT</option>
+            <option value="heavy">Heavy Strength & Power</option>
+            <option value="recovery">Active Recovery & Mobility</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Day Selector Tabs -->
+      <div class="flex gap-2 overflow-x-auto pb-4 mb-8 scrollbar-none">
+        <button data-day="mon" class="schedule-day-btn active px-5 py-2.5 rounded-xl border border-[#e5a93c] text-[#f5d488] bg-[#e5a93c]/10 text-xs font-mono font-bold uppercase cursor-pointer">MONDAY</button>
+        <button data-day="tue" class="schedule-day-btn px-5 py-2.5 rounded-xl border border-white/10 bg-black/40 text-gray-400 hover:text-white text-xs font-mono font-bold uppercase cursor-pointer">TUESDAY</button>
+        <button data-day="wed" class="schedule-day-btn px-5 py-2.5 rounded-xl border border-white/10 bg-black/40 text-gray-400 hover:text-white text-xs font-mono font-bold uppercase cursor-pointer">WEDNESDAY</button>
+        <button data-day="thu" class="schedule-day-btn px-5 py-2.5 rounded-xl border border-white/10 bg-black/40 text-gray-400 hover:text-white text-xs font-mono font-bold uppercase cursor-pointer">THURSDAY</button>
+        <button data-day="fri" class="schedule-day-btn px-5 py-2.5 rounded-xl border border-white/10 bg-black/40 text-gray-400 hover:text-white text-xs font-mono font-bold uppercase cursor-pointer">FRIDAY</button>
+        <button data-day="sat" class="schedule-day-btn px-5 py-2.5 rounded-xl border border-white/10 bg-black/40 text-gray-400 hover:text-white text-xs font-mono font-bold uppercase cursor-pointer">SATURDAY</button>
+        <button data-day="sun" class="schedule-day-btn px-5 py-2.5 rounded-xl border border-white/10 bg-black/40 text-gray-400 hover:text-white text-xs font-mono font-bold uppercase cursor-pointer">SUNDAY</button>
+      </div>
+
+      <!-- Classes Grid -->
+      <div id="classes-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Rendered dynamically by schedule.js -->
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==================== SECTION 6: INTERACTIVE MEMBERSHIP TIERS ==================== -->
+  <section id="membership-section" class="py-24 px-6 lg:px-12 bg-[#08080a] relative">
+    <div class="max-w-7xl mx-auto">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#e5a93c]/10 border border-[#e5a93c]/30 text-xs font-mono text-[#f5d488] font-bold uppercase mb-3">
+          TRANSPARENT PASS TIERS
+        </div>
+        <h2 class="font-display text-4xl sm:text-5xl lg:text-6xl text-white uppercase tracking-tight">
+          MEMBERSHIP <span class="text-gold-gradient">FORGE</span>
+        </h2>
+        <p class="text-gray-300 text-sm mt-3 leading-relaxed">
+          No hidden fees. Unrestricted access to Olympic-grade equipment, hydro recovery suites, and private member perks.
+        </p>
+
+        <!-- Monthly vs Annual Billing Toggle -->
+        <div class="inline-flex items-center gap-4 mt-8 p-1.5 rounded-full bg-[#121217] border border-white/10">
+          <span class="text-xs font-heading font-semibold text-gray-300 pl-4">Monthly</span>
+          <label class="relative inline-flex items-center cursor-pointer">
+            <input id="billing-toggle" type="checkbox" class="sr-only peer">
+            <div class="w-12 h-6 bg-gray-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#e5a93c]"></div>
+          </label>
+          <span class="text-xs font-heading font-semibold text-white pr-4 flex items-center gap-1.5">
+            Annual 
+            <span class="px-2 py-0.5 rounded-full bg-[#ff2a2a] text-white text-[10px] font-mono font-bold">SAVE 20%</span>
+          </span>
+        </div>
+      </div>
+
+      <!-- Pricing Cards Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+        
+        <!-- Tier 1: Iron Pass -->
+        <div class="forge-card p-8 flex flex-col justify-between">
+          <div>
+            <div class="text-xs font-mono text-gray-400 uppercase font-bold tracking-wider mb-2">TIER 01</div>
+            <h3 class="font-heading font-extrabold text-white text-2xl mb-1">IRON PASS</h3>
+            <p class="text-xs text-gray-400 mb-6">Essential access to heavy iron, selectorized machines, and changing suites.</p>
+
+            <div class="flex items-baseline gap-1 mb-6 pb-6 border-b border-white/10">
+              <span id="price-iron" class="font-display text-5xl text-white">$69</span>
+              <span class="price-period text-xs text-gray-400 font-mono">/ month</span>
+            </div>
+
+            <!-- Features -->
+            <ul class="space-y-3 text-xs text-gray-300 mb-8">
+              <li class="flex items-center gap-2.5">
+                <span class="text-[#e5a93c]">✓</span>
+                <span>Strength Zone (Dumbbells up to 60kg, Benches, Barbells)</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <span class="text-[#e5a93c]">✓</span>
+                <span>Machines Zone (Chest Press, Lat Pulldown, Leg Press)</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <span class="text-[#e5a93c]">✓</span>
+                <span>Changing Zone (Smart RFID Lockers & Rainfall Showers)</span>
+              </li>
+              <li class="flex items-center gap-2.5 text-gray-500">
+                <span>✕</span>
+                <span class="line-through">Cardio Zone & Functional Rig Access</span>
+              </li>
+              <li class="flex items-center gap-2.5 text-gray-500">
+                <span>✕</span>
+                <span class="line-through">Personal Training Sessions</span>
+              </li>
+            </ul>
+          </div>
+
+          <button onclick="forgeMembership.openPassModal('Iron Pass')" class="btn-ghost-gold w-full justify-center text-xs py-3.5 cursor-pointer">
+            SELECT IRON PASS
+          </button>
+        </div>
+
+        <!-- Tier 2: FORGE PRO (Most Popular) -->
+        <div class="forge-card p-8 flex flex-col justify-between border-2 border-[#e5a93c] shadow-[0_0_35px_rgba(229,169,60,0.25)] relative">
+          <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-[#e5a93c] text-black font-mono text-[11px] font-bold uppercase tracking-wider">
+            MOST POPULAR • ALL 6 ZONES
+          </div>
+
+          <div>
+            <div class="text-xs font-mono text-[#e5a93c] uppercase font-bold tracking-wider mb-2 mt-2">TIER 02</div>
+            <h3 class="font-heading font-extrabold text-white text-3xl mb-1">FORGE PRO</h3>
+            <p class="text-xs text-gray-400 mb-6">Complete facility clearance across all 6 specialized zones & towel service.</p>
+
+            <div class="flex items-baseline gap-1 mb-6 pb-6 border-b border-white/10">
+              <span id="price-pro" class="font-display text-5xl text-[#f5d488] text-gold-glow">$119</span>
+              <span class="price-period text-xs text-gray-400 font-mono">/ month</span>
+            </div>
+
+            <!-- Features -->
+            <ul class="space-y-3 text-xs text-gray-200 mb-8">
+              <li class="flex items-center gap-2.5 font-semibold text-white">
+                <span class="text-[#e5a93c]">✓</span>
+                <span>ALL 6 ZONES UNRESTRICTED ACCESS</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <span class="text-[#e5a93c]">✓</span>
+                <span>Cardio Zone (Treadmills, Cycles, Cross Trainers)</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <span class="text-[#e5a93c]">✓</span>
+                <span>Strength & Free Weights Arena</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <span class="text-[#e5a93c]">✓</span>
+                <span>Machines Zone (Iso-Lateral Chest & Leg Press)</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <span class="text-[#e5a93c]">✓</span>
+                <span>Functional Zone (Kettlebells, Battle Ropes, Mats)</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <span class="text-[#e5a93c]">✓</span>
+                <span>Changing Suites & Fresh Egyptian Towel Service</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <span class="text-[#e5a93c]">✓</span>
+                <span>1 Free VIP Guest Pass per Month</span>
+              </li>
+            </ul>
+          </div>
+
+          <button onclick="forgeMembership.openPassModal('Forge Pro')" class="btn-forge-gold w-full justify-center text-xs py-3.5 cursor-pointer">
+            JOIN FORGE PRO
+          </button>
+        </div>
+
+        <!-- Tier 3: Titan VIP -->
+        <div class="forge-card p-8 flex flex-col justify-between border-t-4 border-t-[#ff2a2a]">
+          <div>
+            <div class="text-xs font-mono text-[#ff4d4d] uppercase font-bold tracking-wider mb-2">TIER 03</div>
+            <h3 class="font-heading font-extrabold text-white text-2xl mb-1">TITAN VIP</h3>
+            <p class="text-xs text-gray-400 mb-6">24/7 keyless biometric access, 4 monthly PT sessions, and private concierge.</p>
+
+            <div class="flex items-baseline gap-1 mb-6 pb-6 border-b border-white/10">
+              <span id="price-titan" class="font-display text-5xl text-white">$199</span>
+              <span class="price-period text-xs text-gray-400 font-mono">/ month</span>
+            </div>
+
+            <!-- Features -->
+            <ul class="space-y-3 text-xs text-gray-300 mb-8">
+              <li class="flex items-center gap-2.5 font-bold text-white">
+                <span class="text-[#ff2a2a]">✓</span>
+                <span>24/7 RFID Biometric Access</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <span class="text-[#ff2a2a]">✓</span>
+                <span>4x 1-on-1 Master Coach Sessions / Month</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <span class="text-[#ff2a2a]">✓</span>
+                <span>Reserved Smart RFID Locker with Device Charging</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <span class="text-[#ff2a2a]">✓</span>
+                <span>Quarterly 3D InBody 770 Body Scans</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <span class="text-[#ff2a2a]">✓</span>
+                <span>Complimentary Pre-Workout & BCAA Shake Bar</span>
+              </li>
+              <li class="flex items-center gap-2.5">
+                <span class="text-[#ff2a2a]">✓</span>
+                <span>Custom Laser-Engraved Forge Shaker & Duffel</span>
+              </li>
+            </ul>
+          </div>
+
+          <button onclick="forgeMembership.openPassModal('Titan VIP')" class="btn-forge-neon w-full justify-center text-xs py-3.5 cursor-pointer">
+            APPLY FOR TITAN VIP
+          </button>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==================== SECTION 7: VIP DAY PASS SECTION (ON-PAGE GENERATOR) ==================== -->
+  <section class="py-24 px-6 lg:px-12 bg-[#0c0c10] border-t border-b border-white/10 relative">
+    <div class="max-w-4xl mx-auto">
+      
+      <div class="text-center mb-10">
+        <span class="text-xs font-mono text-[#e5a93c] font-bold tracking-widest uppercase">INSTANT DIGITAL PASS</span>
+        <h2 class="font-display text-4xl sm:text-5xl text-white uppercase tracking-tight mt-1">
+          CLAIM YOUR <span class="text-gold-gradient">VIP DAY PASS</span>
+        </h2>
+        <p class="text-gray-300 text-xs sm:text-sm mt-2 max-w-lg mx-auto">
+          Experience FORGE FITNESS in person. Fill out your details below to instantly generate your holographic digital pass and QR access code.
+        </p>
+      </div>
+
+      <!-- Form Container -->
+      <div id="pass-form-container" class="forge-card p-8">
+        <form id="pass-generator-form" class="space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-mono text-gray-400 uppercase mb-1.5">Athlete Full Name</label>
+              <input id="pass-name" type="text" required placeholder="e.g. Johnathan Vance" class="w-full bg-black border border-white/15 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#e5a93c]">
+            </div>
+            <div>
+              <label class="block text-xs font-mono text-gray-400 uppercase mb-1.5">Email / Phone Contact</label>
+              <input id="pass-email" type="text" required placeholder="athlete@email.com or +1 (555) 019-2831" class="w-full bg-black border border-white/15 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#e5a93c]">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-mono text-gray-400 uppercase mb-1.5">Primary Interest Zone</label>
+              <select id="pass-zone-select" class="w-full bg-black border border-white/15 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#e5a93c]">
+                <option value="All 6 Zones">All 6 Facility Zones (Full VIP)</option>
+                <option value="Strength & Barbells">Strength Zone (Dumbbells & Barbells)</option>
+                <option value="Cardio & Endurance">Cardio Zone (Treadmills & Cycles)</option>
+                <option value="Machines & Isolation">Machines Zone (Chest Press & Leg Press)</option>
+                <option value="Functional Combat">Functional Zone (Kettlebells & Ropes)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-mono text-gray-400 uppercase mb-1.5">Target Visit Date</label>
+              <input type="date" value="2026-11-15" class="w-full bg-black border border-white/15 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#e5a93c]">
+            </div>
+          </div>
+
+          <div class="pt-4">
+            <button type="submit" class="btn-forge-gold w-full justify-center text-xs py-4 cursor-pointer">
+              <span>GENERATE HOLOGRAPHIC VIP PASS</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Holographic Card Output (Hidden Initially) -->
+      <div id="pass-card-output" class="hidden">
+        <div class="holographic-pass p-8 border-2 border-[#e5a93c] relative max-w-xl mx-auto">
+          
+          <!-- Top Header -->
+          <div class="flex items-center justify-between pb-4 border-b border-white/10">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#ff2a2a] animate-ping"></span>
+              <span class="font-display text-2xl text-white tracking-wider">FORGE <span class="text-[#e5a93c]">FITNESS</span></span>
+            </div>
+            <span class="px-2.5 py-1 rounded bg-[#e5a93c]/20 text-[#f5d488] font-mono text-[10px] font-bold uppercase tracking-wider border border-[#e5a93c]/40">
+              VIP GUEST ACCESS
+            </span>
+          </div>
+
+          <!-- Pass Details Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-12 gap-6 my-6 items-center">
+            
+            <div class="sm:col-span-7 space-y-3">
+              <div>
+                <div class="text-[10px] font-mono text-gray-400 uppercase">PASS HOLDER</div>
+                <div id="card-holder-name" class="font-heading font-extrabold text-white text-xl">ALEXANDER MERCER</div>
+              </div>
+
+              <div>
+                <div class="text-[10px] font-mono text-gray-400 uppercase">ZONE CLEARANCE</div>
+                <div id="card-zone-access" class="font-mono text-[#f5d488] font-bold text-sm">ALL 6 FACILITY ZONES</div>
+              </div>
+
+              <div>
+                <div class="text-[10px] font-mono text-gray-400 uppercase">SERIAL VERIFICATION CODE</div>
+                <div id="card-pass-code" class="font-mono text-[#ff4d4d] font-bold text-sm">FRG-8942-2026</div>
+              </div>
+
+              <div id="card-issue-date" class="text-[10px] font-mono text-gray-400 pt-1">
+                ISSUED: NOV 13, 2026 • VALID 7 DAYS
+              </div>
+            </div>
+
+            <!-- Canvas Procedural QR Code -->
+            <div class="sm:col-span-5 flex flex-col items-center justify-center p-3 rounded-xl bg-black/80 border border-white/10">
+              <canvas id="pass-qr-canvas" class="rounded-lg shadow-[0_0_15px_rgba(229,169,60,0.3)]"></canvas>
+              <div class="text-[9px] font-mono text-gray-400 mt-2 uppercase tracking-widest">TAP AT RECEPTION DESK</div>
+            </div>
+
+          </div>
+
+          <!-- Pass Actions -->
+          <div class="pt-4 border-t border-white/10 flex items-center justify-between">
+            <button onclick="forgeMembership.printPass()" class="btn-ghost-gold text-xs py-2 px-4 flex items-center gap-1.5 cursor-pointer">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+              <span>PRINT / SAVE PASS</span>
+            </button>
+            <button onclick="forgeMembership.resetPassForm()" class="text-xs font-mono text-gray-400 hover:text-white cursor-pointer">
+              ← Generate Another Pass
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==================== SECTION 8: FACILITY REVIEWS & SOCIAL PROOF ==================== -->
+  <section class="py-24 px-6 lg:px-12 bg-[#08080a] relative">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="text-center max-w-2xl mx-auto mb-12">
+        <span class="text-xs font-mono text-[#e5a93c] font-bold tracking-widest uppercase">AUTHENTIC MEMBER EXPERIENCES</span>
+        <h2 class="font-display text-4xl sm:text-5xl text-white uppercase tracking-tight mt-1">
+          FORGED IN <span class="text-gold-gradient">THE FIRE</span>
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Review 1 -->
+        <div class="forge-card p-6">
+          <div class="flex items-center gap-1 text-[#e5a93c] text-xs mb-3">
+            ★★★★★
+          </div>
+          <p class="text-xs text-gray-300 leading-relaxed italic mb-4">
+            "The equipment in the Strength Zone is unmatched. Having calibrated 60kg dumbbells and competition bars without waiting in lines changed my entire lifting career. The red neon ambiance pushes you into a primal mindset."
+          </p>
+          <div class="flex items-center gap-3 pt-3 border-t border-white/5">
+            <div class="w-8 h-8 rounded-full bg-[#e5a93c]/20 text-[#f5d488] font-bold font-mono flex items-center justify-center text-xs">DV</div>
+            <div>
+              <div class="text-white font-heading font-bold text-xs">David Vance</div>
+              <div class="text-[10px] text-gray-400 font-mono">Powerlifter • 2 Year Member</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 2 -->
+        <div class="forge-card p-6 border-t-2 border-t-[#e5a93c]">
+          <div class="flex items-center gap-1 text-[#e5a93c] text-xs mb-3">
+            ★★★★★
+          </div>
+          <p class="text-xs text-gray-300 leading-relaxed italic mb-4">
+            "The Functional Zone with the battle ropes and kettlebells is elite, but honestly the rainfall showers and smart RFID lockers make it feel like a luxury resort. It's the cleanest gym in the city by a mile."
+          </p>
+          <div class="flex items-center gap-3 pt-3 border-t border-white/5">
+            <div class="w-8 h-8 rounded-full bg-[#ff2a2a]/20 text-[#ff4d4d] font-bold font-mono flex items-center justify-center text-xs">SK</div>
+            <div>
+              <div class="text-white font-heading font-bold text-xs">Sarah Koenig</div>
+              <div class="text-[10px] text-gray-400 font-mono">CrossFit Athlete • FORGE PRO</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Review 3 -->
+        <div class="forge-card p-6">
+          <div class="flex items-center gap-1 text-[#e5a93c] text-xs mb-3">
+            ★★★★★
+          </div>
+          <p class="text-xs text-gray-300 leading-relaxed italic mb-4">
+            "The Iso-Lateral Chest Press and Lat Pulldowns in the Machines Zone offer zero shoulder impingement. From the moment you walk past the gold branding wall at Reception, you know you're in a serious temple."
+          </p>
+          <div class="flex items-center gap-3 pt-3 border-t border-white/5">
+            <div class="w-8 h-8 rounded-full bg-emerald-500/20 text-emerald-300 font-bold font-mono flex items-center justify-center text-xs">MT</div>
+            <div>
+              <div class="text-white font-heading font-bold text-xs">Marcus Thorne</div>
+              <div class="text-[10px] text-gray-400 font-mono">Bodybuilding Competitor • TITAN VIP</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==================== SECTION 9: RECEPTION & VISIT INFO ==================== -->
+  <section class="py-24 px-6 lg:px-12 bg-[#0c0c10] border-t border-white/10 relative">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      
+      <div class="lg:col-span-6 space-y-6">
+        <span class="text-xs font-mono text-[#e5a93c] font-bold tracking-widest uppercase">RECEPTION ZONE & LOCATION</span>
+        <h2 class="font-display text-4xl sm:text-5xl text-white uppercase tracking-tight">
+          VISIT THE <span class="text-gold-gradient">FORGE DESK</span>
+        </h2>
+        <p class="text-gray-300 text-sm leading-relaxed">
+          Our VIP membership desk is staffed daily for orientations, biometric scans, supplement consultations, and private facility walkthroughs.
+        </p>
+
+        <!-- Hours & Details -->
+        <div class="space-y-3 font-mono text-xs">
+          <div class="p-3.5 rounded-xl bg-black/50 border border-white/10 flex justify-between">
+            <span class="text-gray-400">STAFFED CONCIERGE HOURS:</span>
+            <span class="text-white font-bold">Mon - Fri: 06:00 AM - 10:00 PM</span>
+          </div>
+          <div class="p-3.5 rounded-xl bg-black/50 border border-white/10 flex justify-between">
+            <span class="text-gray-400">WEEKEND HOURS:</span>
+            <span class="text-white font-bold">Sat - Sun: 07:00 AM - 09:00 PM</span>
+          </div>
+          <div class="p-3.5 rounded-xl bg-black/50 border border-[#e5a93c]/30 flex justify-between">
+            <span class="text-[#f5d488]">TITAN VIP MEMBERS:</span>
+            <span class="text-[#f5d488] font-bold">24 HOURS / 7 DAYS (RFID)</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-4 pt-2">
+          <button onclick="forgeMembership.openPassModal('Reception Consultation')" class="btn-forge-gold text-xs py-3 px-6 cursor-pointer">
+            SCHEDULE A DESK VISIT
+          </button>
+          <a href="tel:5550192831" class="btn-ghost-gold text-xs py-3 px-6">
+            CALL CONCIERGE
+          </a>
+        </div>
+      </div>
+
+      <!-- Real Reception Photo Card -->
+      <div class="lg:col-span-6 relative rounded-2xl overflow-hidden border border-[#e5a93c]/40 shadow-2xl">
+        <img 
+          src="assets/images/reception.jpg" 
+          alt="FORGE FITNESS Reception Desk" 
+          class="w-full h-[400px] object-cover object-center brightness-95 hover:scale-105 transition-transform duration-700"
+        >
+        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent"></div>
+        <div class="absolute bottom-4 left-4 right-4 p-4 rounded-xl bg-black/80 backdrop-blur-md border border-white/10 flex items-center justify-between">
+          <div>
+            <div class="text-xs font-mono text-[#f5d488] font-bold uppercase">RECEPTION ZONE SHOWCASE</div>
+            <div class="text-white font-heading font-bold text-sm">Branding Wall & Chesterfield Suite</div>
+          </div>
+          <button onclick="forgeZones.switchZone(5); document.getElementById('zones-explorer').scrollIntoView({behavior:'smooth'})" class="text-xs font-mono text-[#e5a93c] hover:text-white cursor-pointer font-bold">
+            Inspect Hotspots →
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="py-12 px-6 lg:px-12 bg-[#060608] border-t border-white/10 text-xs font-mono text-gray-400">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      
+      <div class="flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-[#e5a93c]/20 border border-[#e5a93c]/40 flex items-center justify-center font-display text-lg text-[#f5d488]">F</div>
+        <div>
+          <div class="font-display text-lg tracking-wider text-white">FORGE FITNESS</div>
+          <div class="text-[10px] text-gray-500">© 2026 ALL RIGHTS RESERVED • TEMPER YOUR WILL</div>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-6 text-gray-400">
+        <a href="#zones-explorer" class="hover:text-white transition-colors">Zones</a>
+        <a href="#equipment-section" class="hover:text-white transition-colors">Equipment</a>
+        <a href="#heatmap-section" class="hover:text-white transition-colors">Heatmap</a>
+        <a href="#fit-lab-section" class="hover:text-white transition-colors">Fit Lab</a>
+        <a href="#classes-section" class="hover:text-white transition-colors">Classes</a>
+        <a href="#membership-section" class="hover:text-white transition-colors">Memberships</a>
+      </div>
+
+      <div class="flex items-center gap-2 text-gray-500 text-[11px]">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#ff2a2a]"></span>
+        <span>Obsidian & Gold Design System</span>
+      </div>
+
+    </div>
+  </footer>
+
+
+  <!-- ==================== MODALS ==================== -->
+
+  <!-- 1. Equipment Dossier Hotspot Modal -->
+  <div id="equipment-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 forge-modal-backdrop">
+    <div class="forge-card p-6 sm:p-8 max-w-lg w-full border border-[#e5a93c] shadow-2xl relative">
+      <button onclick="document.getElementById('equipment-modal').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-white p-1">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <span id="modal-equip-zone" class="text-xs font-mono text-[#e5a93c] uppercase font-bold tracking-wider">
+        Cardio Zone • Zone 01
+      </span>
+      <h3 id="modal-equip-title" class="text-white font-heading font-extrabold text-2xl mt-1 mb-2">
+        Curved & Sled Commercial Treadmill
+      </h3>
+      <div id="modal-equip-model" class="text-xs font-mono text-[#f5d488] mb-4 pb-3 border-b border-white/10">
+        Technogym Skillrun Series
+      </div>
+
+      <div class="space-y-4 text-xs">
+        <div>
+          <div class="font-mono text-gray-400 uppercase text-[10px] mb-1">TECHNICAL SPECIFICATIONS</div>
+          <p id="modal-equip-specs" class="text-gray-300 leading-relaxed bg-black/50 p-3 rounded-lg border border-white/5">
+            Speed up to 25 km/h • 15% Incline • Integrated Cadence & Watt Sensor
+          </p>
+        </div>
+
+        <div class="p-3 rounded-lg bg-[#e5a93c]/10 border border-[#e5a93c]/30 flex items-center justify-between">
+          <span class="text-gray-300">Biomechanical Safety Status:</span>
+          <span class="text-[#f5d488] font-mono font-bold">100% Calibrated</span>
+        </div>
+      </div>
+
+      <div class="mt-6 flex gap-3">
+        <button onclick="document.getElementById('equipment-modal').classList.add('hidden')" class="btn-forge-gold w-full justify-center text-xs py-3 cursor-pointer">
+          CLOSE DOSSIER
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Pro Lifting Tip Modal -->
+  <div id="protip-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 forge-modal-backdrop">
+    <div class="forge-card p-6 sm:p-8 max-w-md w-full border border-[#ff2a2a] shadow-2xl relative">
+      <button onclick="document.getElementById('protip-modal').classList.add('hidden')" class="absolute top-4 right-4 text-gray-400 hover:text-white p-1">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <span id="protip-zone" class="text-xs font-mono text-[#ff4d4d] uppercase font-bold tracking-wider">
+        Strength Zone • Technique Focus
+      </span>
+      <h3 id="protip-title" class="text-white font-heading font-extrabold text-xl mt-1 mb-4">
+        Calibrated Dumbbells
+      </h3>
+
+      <div class="p-4 rounded-xl bg-black/60 border border-white/10 text-xs text-gray-200 leading-relaxed mb-6">
+        <div class="text-[#e5a93c] font-mono font-bold mb-1 uppercase text-[11px]">COACH EXECUTION NOTE:</div>
+        <p id="protip-content">Squeeze the knurled handles at maximal contraction to activate motor unit recruitment and grip stabilizers.</p>
+      </div>
+
+      <button onclick="document.getElementById('protip-modal').classList.add('hidden')" class="btn-ghost-gold w-full justify-center text-xs py-2.5 cursor-pointer">
+        GOT IT, LET'S LIFT
+      </button>
+    </div>
+  </div>
+
+  <!-- 3. VIP Pass Modal Popup -->
+  <div id="vip-pass-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 forge-modal-backdrop">
+    <div class="forge-card p-6 sm:p-8 max-w-lg w-full border border-[#e5a93c] shadow-2xl relative">
+      <button onclick="forgeMembership.closePassModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white p-1">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+
+      <div class="flex items-center gap-2 mb-2">
+        <span class="w-2 h-2 rounded-full bg-[#ff2a2a] animate-ping"></span>
+        <span class="text-xs font-mono text-[#e5a93c] font-bold uppercase tracking-wider">FORGE FITNESS VIP PASS</span>
+      </div>
+      <h3 class="text-white font-heading font-extrabold text-2xl mb-1">CLAIM GUEST CLEARANCE</h3>
+      <p class="text-xs text-gray-400 mb-6">Receive your holographic day pass and unique QR check-in code.</p>
+
+      <form onsubmit="event.preventDefault(); forgeMembership.closePassModal(); document.getElementById('pass-name').value = document.getElementById('modal-pass-name').value; document.getElementById('pass-email').value = document.getElementById('modal-pass-email').value; document.getElementById('pass-generator-form').dispatchEvent(new Event('submit')); document.getElementById('pass-form-container').scrollIntoView({behavior:'smooth'});" class="space-y-4">
+        <div>
+          <label class="block text-xs font-mono text-gray-400 uppercase mb-1">Full Name</label>
+          <input id="modal-pass-name" type="text" required placeholder="Alexander Mercer" class="w-full bg-black border border-white/15 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#e5a93c]">
+        </div>
+        <div>
+          <label class="block text-xs font-mono text-gray-400 uppercase mb-1">Email / Phone</label>
+          <input id="modal-pass-email" type="text" required placeholder="alexander@forge.com" class="w-full bg-black border border-white/15 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-[#e5a93c]">
+        </div>
+        <input type="hidden" id="pass-tier-input" value="VIP Free Trial">
+
+        <button type="submit" class="btn-forge-gold w-full justify-center text-xs py-3.5 mt-2 cursor-pointer">
+          FORGE MY PASS NOW →
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 4. Fullscreen 360 / Lightbox Modal -->
+  <div id="zone-lightbox" class="fixed inset-0 z-50 hidden flex-col bg-black/95 backdrop-blur-2xl p-4 sm:p-8">
+    <div class="flex items-center justify-between pb-4 border-b border-white/10">
+      <div id="lightbox-caption" class="space-y-0.5">
+        <!-- Rendered by zones.js -->
+      </div>
+      <div class="flex items-center gap-3">
+        <button onclick="forgeZones.prevZone(); forgeZones.openFullscreenTour();" class="p-2 rounded-lg bg-black/60 border border-white/15 text-white hover:text-[#e5a93c]">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <button onclick="forgeZones.nextZone(); forgeZones.openFullscreenTour();" class="p-2 rounded-lg bg-black/60 border border-white/15 text-white hover:text-[#e5a93c]">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        </button>
+        <button onclick="forgeZones.closeLightbox()" class="p-2 rounded-lg bg-[#ff2a2a]/20 border border-[#ff2a2a] text-[#ff4d4d] hover:bg-[#ff2a2a] hover:text-white transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="flex-1 flex items-center justify-center overflow-hidden my-4">
+      <img id="lightbox-image" src="" alt="Fullscreen View" class="max-h-[82vh] max-w-full object-contain rounded-xl shadow-2xl border border-white/10">
+    </div>
+
+    <div class="text-center text-xs font-mono text-gray-500">
+      Use ← / → keys or buttons to navigate zones • Press ESC to exit
+    </div>
+  </div>
+
+
+  <!-- ==================== APPLICATION SCRIPTS ==================== -->
+  <script src="assets/js/sound.js"></script>
+  <script src="assets/js/particles.js"></script>
+  <script src="assets/js/zones.js"></script>
+  <script src="assets/js/equipment.js"></script>
+  <script src="assets/js/calculators.js"></script>
+  <script src="assets/js/schedule.js"></script>
+  <script src="assets/js/membership.js"></script>
+  <script src="assets/js/main.js"></script>
+
+  <script>
+    // Initialize Lucide icons
+    if (window.lucide) {
+      lucide.createIcons();
+    }
+  </script>
+</body>
+</html>
